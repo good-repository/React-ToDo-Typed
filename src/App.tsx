@@ -1,5 +1,14 @@
+import GlobalStyle from "./styles/global";
+
+import { Login } from "./pages/login";
+
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <Login />
+      <GlobalStyle />
+    </div>
+  );
 }
 
 export default App;
