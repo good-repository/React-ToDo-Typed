@@ -1,13 +1,15 @@
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { Form } from "./styles";
+import { useAuth } from "../../store/context/auth";
 
 export default function SignIn() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { signIn } = useAuth();
 
   function handleFormSubmit() {
+    signIn();
     setUsername("");
     setPassword("");
   }
