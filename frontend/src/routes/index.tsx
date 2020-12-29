@@ -11,8 +11,16 @@ const Routes: React.FC = () => {
 
   if (loading) {
     return (
-      <div style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <PulseLoader color="#666" />
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <PulseLoader color="#3b9eff" />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as auth from "../../services/auth";
+import createHistory from "history/createBrowserHistory";
 
 interface User {
   name: string;
@@ -18,11 +19,12 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const history = createHistory();
 
   useEffect(() => {
     async function loadStoragedData() {
-      const storagedUser = await localStorage.getItem("@RNAuth:user");
-      const storagedToken = await localStorage.getItem("@RNAuth:token");
+      const storagedUser = await localStorage.getItem("@ToDo:user");
+      const storagedToken = await localStorage.getItem("@ToDo:token");
 
       if (storagedUser && storagedToken) {
         setUser(JSON.parse(storagedUser));
@@ -40,8 +42,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     setUser(response.user);
 
-    await localStorage.setItem("@RNAuth:user", JSON.stringify(response.user));
-    await localStorage.setItem("@RNAuth:token", response.token);
+    localStorage.setItem("@ToDo:user", JSON.stringify(response.user));
+    localStorage.setItem("@ToDo:token", response.token);
 
     setLoading(false);
   }
@@ -49,6 +51,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   async function signOut() {
     localStorage.clear();
     setUser(null);
+    history.push("/");
   }
 
   return (
