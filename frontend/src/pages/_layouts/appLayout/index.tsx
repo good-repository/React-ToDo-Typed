@@ -2,7 +2,7 @@ import { Header } from "../../../components/Header";
 
 import { Wrapper } from "./styles";
 
-function DefaultLayout({ children }: any) {
+function AppLayout({ children }: any) {
   return (
     <Wrapper>
       <Header />
@@ -11,4 +11,4 @@ function DefaultLayout({ children }: any) {
   );
 }
 
-export default DefaultLayout;
+export default AppLayout;
