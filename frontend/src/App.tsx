@@ -1,13 +1,16 @@
 import GlobalStyle from "./styles/global";
 
-import { Login } from "./pages/login";
+import Routes from "./routes/index";
+import { AuthProvider } from "./store/context/auth";
 
 function App() {
   return (
-    <div>
-      <Login />
+    <>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
       <GlobalStyle />
-    </div>
+    </>
   );
 }
 
