@@ -1,8 +1,9 @@
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
 import { Form } from "./styles";
 
-export default function Login() {
+export default function SignIn() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -16,10 +17,7 @@ export default function Login() {
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
-        background: "#555",
       }}
     >
       <h1 style={{ color: "#fff", fontSize: "4rem" }}>ToDo App</h1>
@@ -42,7 +40,7 @@ export default function Login() {
 
         <div>
           <button type="submit">Login</button>
-          <button onClick={() => {}}>Register</button>
+          <Link to="/register">Don't have an account?</Link>
         </div>
       </Form>
     </div>

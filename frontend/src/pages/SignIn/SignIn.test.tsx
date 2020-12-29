@@ -1,10 +1,10 @@
 import { render, fireEvent } from "@testing-library/react";
 
-import Login from "./Login";
+import Login from "./SignIn";
 
 describe("Login page test", () => {
   it("should be able to add texts to form", () => {
-    const { getByText, getByTestId, getByLabelText } = render(<Login />);
+    const { getByText, getByLabelText } = render(<Login />);
 
     fireEvent.change(getByLabelText("Username"), {
       target: { value: "Some username" },
@@ -12,7 +12,6 @@ describe("Login page test", () => {
     fireEvent.change(getByLabelText("Password"), {
       target: { value: "Some password" },
     });
-    // fireEvent.submit(getByTestId("login-form"));
     fireEvent.click(getByText("Login"));
 
     expect(getByLabelText("Username")).toHaveValue("");
