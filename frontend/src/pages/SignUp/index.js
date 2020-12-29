@@ -1,7 +1,1 @@
-export default function index() {
-  return (
-    <div>
-      <p>register page</p>
-    </div>
-  );
-}
+export { default as SignUp } from "./SignUp";
