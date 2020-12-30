@@ -3,7 +3,6 @@ import { useAuth } from "../../store/context/auth";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ButtonCointainer, Form } from "./styles";
-import { sign } from "crypto";
 
 export default function SignUp() {
   const [username, setUsername] = useState<string>("");
