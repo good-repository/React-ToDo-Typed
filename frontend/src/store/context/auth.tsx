@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as auth from "../../services/auth";
-import createHistory from "history/createBrowserHistory";
 
 interface User {
   name: string;
@@ -19,7 +18,6 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const history = createHistory();
 
   useEffect(() => {
     async function loadStoragedData() {
@@ -51,7 +49,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   async function signOut() {
     localStorage.clear();
     setUser(null);
-    history.push("/");
   }
 
   return (

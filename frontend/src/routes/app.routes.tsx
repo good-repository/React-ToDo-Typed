@@ -1,4 +1,4 @@
-import { Switch, Route, Router } from "react-router-dom";
+import { Switch, Route, Router, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import AppLayout from "../pages/_layouts/appLayout";
@@ -14,6 +14,7 @@ const AppRoutes: React.FC = () => (
       <AppLayout>
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/about" component={About} />
+        <Redirect to="/dashboard" />
       </AppLayout>
     </Switch>
   </Router>
