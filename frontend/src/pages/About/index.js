@@ -1,7 +1,1 @@
-export default function index() {
-  return (
-    <div>
-      <p>about page</p>
-    </div>
-  );
-}
+export { default as About } from "./About";

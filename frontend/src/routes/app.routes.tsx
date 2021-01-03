@@ -4,7 +4,7 @@ import { createBrowserHistory } from "history";
 import AppLayout from "../pages/_layouts/appLayout";
 
 import Dashboard from "../pages/Dashboard";
-import About from "../pages/About";
+import { About } from "../pages/About";
 
 const history = createBrowserHistory();
 
