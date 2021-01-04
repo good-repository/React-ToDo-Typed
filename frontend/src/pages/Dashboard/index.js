@@ -1,7 +1,1 @@
-export default function index() {
-  return (
-    <div>
-      <p>dashboard page</p>
-    </div>
-  );
-}
+export { default as Dashboard } from "./Dashboard";
