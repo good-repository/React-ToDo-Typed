@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const Styles = styled.div`
-  padding: 2rem;
-
   table {
     border-radius: 1rem;
     background-color: #fff;
