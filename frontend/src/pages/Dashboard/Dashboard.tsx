@@ -4,8 +4,43 @@ import { Table } from "../../components/Table";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { MdCheck, MdDelete, MdEdit, MdSearch, MdUndo } from "react-icons/md";
+
+interface UserTypes {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+}
+
+interface ToDoTypes {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+  start?: Date;
+  conclusion?: Date;
+}
 
 const selectStyles = {
   option: (provided: any, state: any) => ({
@@ -24,17 +59,20 @@ const selectStyles = {
   }),
 };
 
+const validationSchema = Yup.object().shape({
+  // description: Yup.string().required("Campo obrigatório"),
+});
+
 export default function Dashboard() {
   const [list, setList] = useState([]);
   const [options, setOptions] = useState([]);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((json) =>
         setOptions(
-          json.map((item: any) => {
+          json.map((item: UserTypes) => {
             return {
               value: item.id,
               label: item.name,
@@ -47,7 +85,7 @@ export default function Dashboard() {
       .then((response) => response.json())
       .then((json) =>
         setList(
-          json.map((item: any) => {
+          json.map((item: ToDoTypes) => {
             return {
               id: item.id,
               userId: item.userId,
@@ -118,13 +156,51 @@ export default function Dashboard() {
     []
   );
 
+  const formik = useFormik({
+    initialValues: {
+      description: "",
+      date: new Date(),
+      responsible: {} as any,
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        // setList(
+        //   (state) =>
+        //     [
+        //       {
+        //         id: Math.random(),
+        //         userId: values.responsible.label,
+        //         title: values.description,
+        //         start: new Date(),
+        //       },
+        //       ...state,
+        //     ] as any //aqui não faço idea
+        // );
+        console.log({
+          id: Math.random(),
+          userId: values.responsible.label,
+          title: values.description,
+          start: new Date(),
+        });
+      } catch (err) {
+        //something
+      }
+    },
+  });
+
   return (
     <Container>
       <Title>Task Form</Title>
-      <Form>
+      <Form onSubmit={formik.handleSubmit}>
         <Label>Description</Label>
         <div style={{ display: "flex", flexGrow: 1, marginBottom: "1rem" }}>
-          <Input />
+          <Input
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
           <Button style={{ backgroundColor: "#17a2b8" }}>
             <MdSearch size={20} color={"#fff"} />
           </Button>
@@ -140,19 +216,29 @@ export default function Dashboard() {
             >
               <Label>Date</Label>
               <DatePicker
-                selected={startDate}
-                onChange={(date: Date | null) => setStartDate(date)}
+                selected={formik.values.date}
+                onChange={(date: Date | null) =>
+                  formik.setFieldValue("date", date)
+                }
                 dateFormat="dd/MM/yyyy"
                 customInput={<Input />}
               />
             </div>
             <div style={{ width: "260px" }}>
               <Label>Responsible</Label>
-              <Select options={options} styles={selectStyles} />
+              <Select
+                options={options}
+                styles={selectStyles}
+                value={formik.values.responsible}
+                onChange={(value: any) =>
+                  formik.setFieldValue("responsible", value)
+                }
+              />
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Button
+              type="submit"
               style={{
                 backgroundColor: "#28a745",
                 width: "100px",
